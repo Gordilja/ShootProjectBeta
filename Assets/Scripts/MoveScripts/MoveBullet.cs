@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveBullet : MonoBehaviour
 {
-    private float speed = 100;
+    private float speed = 1000;
     private Rigidbody rb;
 
     void Start() 

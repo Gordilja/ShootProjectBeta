@@ -13,6 +13,7 @@ public class MoveZombie : MonoBehaviour
     void Start()
     {
         move = true;
+        FindObjectOfType<AudioManager>().idlePlay();
         manimation = GetComponent<Animator>();
         isHitHash = Animator.StringToHash("isHit");
     }
@@ -22,7 +23,7 @@ public class MoveZombie : MonoBehaviour
     {
         if (move == true) 
         {
-            FindObjectOfType<AudioManager>().idlePlay();
+            
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
             if (transform.position.z < -19)
             {

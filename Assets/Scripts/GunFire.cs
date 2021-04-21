@@ -7,6 +7,7 @@ public class GunFire : MonoBehaviour
     public Rigidbody bulletPref;
     //public Vector3 spawnPos;
     public Transform tip;
+    public ParticleSystem flash;
 
     // Update is called once per frame
     void Update()
@@ -14,6 +15,7 @@ public class GunFire : MonoBehaviour
         //spawnPos = new Vector3(tip.transform.localPosition.x * tip.transform.localRotation.x, tip.transform.position.y, tip.transform.position.z);
         if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
+            flash.Play();
             FindObjectOfType<GameManager>().play();
             Instantiate(bulletPref, tip.position, tip.transform.rotation);
             FindObjectOfType<AudioManager>().bangPlay();
