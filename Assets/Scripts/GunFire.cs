@@ -16,6 +16,7 @@ public class GunFire : MonoBehaviour
         {
             FindObjectOfType<GameManager>().play();
             Instantiate(bulletPref, tip.position, tip.transform.rotation);
+            FindObjectOfType<AudioManager>().bangPlay();
             //Shoot();
         }
     }
