@@ -22,7 +22,7 @@ public class MoveZombie : MonoBehaviour
     {
         if (move == true) 
         {
-            
+            FindObjectOfType<AudioManager>().idlePlay();
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
             if (transform.position.z < -19)
             {
@@ -36,6 +36,7 @@ public class MoveZombie : MonoBehaviour
         {
             move = false;
             manimation.SetBool(isHitHash, true);
+            FindObjectOfType<AudioManager>().deathPlay();
             GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
             StartCoroutine(die());
         }
