@@ -4909,6 +4909,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPref: {fileID: 5249110088650147408, guid: 29d178a8355b90d448375c86ea92292d, type: 3}
   tip: {fileID: 9202296767636956374}
+  flash: {fileID: 0}
+  bulletCount: 0
 --- !u!1 &8115239376452580996
 GameObject:
   m_ObjectHideFlags: 0
@@ -4934,8 +4936,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8115239376452580996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 1.5, z: 3}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0.14, y: 1.456, z: 2}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0}
   m_Children: []
   m_Father: {fileID: 2524495113981825811}
   m_RootOrder: 1
