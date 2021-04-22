@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource death;
     public AudioSource bdmusic;
     public AudioSource idle;
+    public AudioSource reload;
 
     public void bangPlay()
     {
@@ -28,6 +29,11 @@ public class AudioManager : MonoBehaviour
     public void idlePlay()
     {
         idle.Play();
+    }
+
+    public void reloadPlay()
+    {
+        reload.Play();
     }
 
     public void bdPlay()

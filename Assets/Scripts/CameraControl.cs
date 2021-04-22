@@ -6,7 +6,6 @@ public class CameraControl : MonoBehaviour
     public GameObject player;
     public Quaternion rotation;
 
-    // Update is called once per frame
     void Update()
     {
             target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
