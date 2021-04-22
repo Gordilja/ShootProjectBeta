@@ -24,14 +24,13 @@ public class GunFire : MonoBehaviour
         else if (bulletCount == 30) 
         {
             StartCoroutine(reload());
-            //return;
         } 
     }
 
     IEnumerator reload() 
-    {    
-        yield return new WaitForSeconds(0.5f);
+    {
         FindObjectOfType<AudioManager>().reloadPlay();
+        yield return new WaitForSeconds(1.5f);
         bulletCount = 0;
     }
 
