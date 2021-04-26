@@ -2,46 +2,46 @@
 
 public class CameraControl : MonoBehaviour
 {
-    private Vector3 target;
     public GameObject player;
-    public Quaternion rotation;
+    private Vector3 enemy;
     public bool moveCam;
 
-    void Update()
+    private void Update()
     {
+        
         moveCam = FindObjectOfType<GameManager>().move;
         if (moveCam == true) 
         {
-            //GameObject[] gos = GameObject.FindGameObjectsWithTag("Zombie");
-            target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
-            rotation = Quaternion.Euler(target.y, -target.x, 0);
-            player.transform.rotation = rotation;
+            GameObject target = FindClosestEnemy();
+            enemy = target.transform.position;
+            player.transform.LookAt(enemy);
+            if (enemy == null) 
+            {
+                enemy = player.transform.position;
+            }
+            //target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(enemy.x, enemy.y, transform.position.z));
+            //rotation = Quaternion.Euler(target.y, -target.x, 0);
+            //player.transform.rotation = rotation;
         }   
     }
 
-    /*
-    public GameObject FindClosestEnemy(float min, float max)
+    private GameObject FindClosestEnemy()
     {
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("Zombie");
+        GameObject[] findenemy = GameObject.FindGameObjectsWithTag("Zombie");
         GameObject closest = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
 
-        // calculate squared distances
-        min = min * min;
-        max = max * max;
-
-        foreach (GameObject go in gos)
+        foreach (GameObject zombie in findenemy)
         {
-            Vector3 diff = go.transform.position - position;
+            Vector3 diff = zombie.transform.position - position;
             float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance && curDistance >= min && curDistance <= max)
+            if (curDistance < distance)
             {
-                closest = go;
+                closest = zombie;
                 distance = curDistance;
             }
         }
         return closest;
     }
-    */
 }

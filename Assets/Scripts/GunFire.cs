@@ -18,7 +18,7 @@ public class GunFire : MonoBehaviour
 
         if (bulletCount < 30)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown("space"))
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Shoot();
             }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveZombie : MonoBehaviour
 {
-    float speed = 3;
+    float speed = 2;
     Animator manimation;
     public bool moveZombie;
     bool hit;

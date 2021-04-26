@@ -15,17 +15,18 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {   
-        levelReq = 10;
         move = true;
     }
 
     private void Update()
     {
-        levelCount = FindObjectOfType<SaveData>().score + 1;
+        levelReq = FindObjectOfType<SpawnManager>().maxSpawn;
+        levelCount = FindObjectOfType<SaveData>().score - 1;
         if (levelCount == levelReq)
         {
             levelClear();
         }
+       
     }
 
     private void Awake()
@@ -51,21 +52,17 @@ public class GameManager : MonoBehaviour
 
     public void levelClear() 
     {
-        if (levelCount == levelReq) 
-        {
-            finishedLevel();
-            levelReq += 5;
-        }
+        StartCoroutine(finishedLevel());    
     }
 
     public void nextLevel() 
     {
-        NextlvlPanel.SetActive(false);
+        NextlvlPanel.SetActive(false);     
         move = true;
-        levelReq += 5;
-        DestroyAll();
+        //DestroyAll();
     }
 
+    /*
     void DestroyAll()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
@@ -74,12 +71,7 @@ public class GameManager : MonoBehaviour
             Destroy(enemies[i]);
         }
     }
-
-    public void finishedLevel() 
-    {
-        NextlvlPanel.SetActive(true);
-        move = false;
-    }
+    */
 
     #region GameOver
     public void gameEnd()
@@ -87,11 +79,17 @@ public class GameManager : MonoBehaviour
         move = false;
         StartCoroutine(waitAnim());
     }
-
     IEnumerator waitAnim()
     {
         yield return new WaitForSeconds(waitTime);
         RetryPanel.SetActive(true);
+    }
+    IEnumerator finishedLevel()
+    {
+        NextlvlPanel.SetActive(true);
+        move = false;
+        yield return new WaitForSeconds(1);
+        levelReq = levelReq + 5;
     }
     #endregion
 
