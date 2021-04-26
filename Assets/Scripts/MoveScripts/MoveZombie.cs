@@ -6,13 +6,14 @@ public class MoveZombie : MonoBehaviour
 {
     float speed = 3;
     Animator manimation;
-    public bool move;
+    public bool moveZombie;
+    bool hit;
     int isHitHash;
 
     // Start is called before the first frame update
     void Start()
     {
-        move = true;
+        hit = false;
         FindObjectOfType<AudioManager>().idlePlay();
         manimation = GetComponent<Animator>();
         isHitHash = Animator.StringToHash("isHit");
@@ -21,13 +22,14 @@ public class MoveZombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (move == true) 
-        {
-            
+        moveZombie = FindObjectOfType<GameManager>().move;
+        if (moveZombie == true && hit == false) 
+        {    
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
             if (transform.position.z < -19)
             {
                 Destroy(gameObject);
+                FindObjectOfType<GameManager>().gameEnd();
             }
         }
     }
@@ -35,7 +37,7 @@ public class MoveZombie : MonoBehaviour
     {
         if (other.tag == "Bullet") 
         {
-            move = false;
+            hit = true;
             manimation.SetBool(isHitHash, true);
             FindObjectOfType<AudioManager>().deathPlay();
             GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
@@ -45,7 +47,7 @@ public class MoveZombie : MonoBehaviour
 
     public void death() 
     {
-        move = false;
+        moveZombie = false;
         manimation.SetBool(isHitHash, true);  
         StartCoroutine(die());
     }

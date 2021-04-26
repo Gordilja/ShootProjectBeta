@@ -5,8 +5,6 @@ using TMPro;
 
 public class SaveData : MonoBehaviour
 {
-    //public int level = 1;
-    //public int achievedLevel = 1;
     public int score;
     public TextMeshProUGUI scoreNum;
 
@@ -14,8 +12,6 @@ public class SaveData : MonoBehaviour
     {
         GameManager.SaveData = this;
         score = 1;
-        //achievedLevel = PlayerPrefs.GetInt("AchievedLevel", 1);
-        //level = PlayerPrefs.GetInt("Level", 1);
     }
 
     public void scoreUp()

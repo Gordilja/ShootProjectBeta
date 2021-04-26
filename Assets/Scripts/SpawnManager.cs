@@ -5,16 +5,23 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject prefabObst;
+    int spawnCount;
+    public int maxSpawn;
     
     // Start is called before the first frame update
     void Start()
     {
+        maxSpawn = FindObjectOfType<GameManager>().levelReq;
         InvokeRepeating("SpawnObstacle", 2, 1.4f);
     }
 
     void SpawnObstacle() 
     {
-        Vector3 spawnerPos = new Vector3(Random.Range(-2, 2), 0.3f, 10);
-        Instantiate(prefabObst, spawnerPos, prefabObst.transform.rotation);
+        if (spawnCount < maxSpawn)
+        {
+            Vector3 spawnerPos = new Vector3(Random.Range(-2, 2), 0.3f, 10);
+            Instantiate(prefabObst, spawnerPos, prefabObst.transform.rotation);
+            spawnCount++;
+        } 
     }
 }

@@ -5,13 +5,18 @@ public class CameraControl : MonoBehaviour
     private Vector3 target;
     public GameObject player;
     public Quaternion rotation;
+    public bool moveCam;
 
     void Update()
     {
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("Zombie");
-        target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
-        rotation = Quaternion.Euler(target.y, -target.x, 0);
-        player.transform.rotation = rotation;
+        moveCam = FindObjectOfType<GameManager>().move;
+        if (moveCam == true) 
+        {
+            //GameObject[] gos = GameObject.FindGameObjectsWithTag("Zombie");
+            target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
+            rotation = Quaternion.Euler(target.y, -target.x, 0);
+            player.transform.rotation = rotation;
+        }   
     }
 
     /*
