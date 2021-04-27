@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     {   
         move = true;
     }
-
+    /*
     private void Update()
     {
         levelReq = FindObjectOfType<SpawnManager>().maxSpawn;
@@ -25,10 +25,11 @@ public class GameManager : MonoBehaviour
         if (levelCount == levelReq)
         {
             levelClear();
-        }
-       
+            levelReq = levelReq + 5;
+            //return;
+        }    
     }
-
+    */
     private void Awake()
     {
         StartPanel.SetActive(true);
@@ -41,8 +42,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         StartPanel.SetActive(false);
-        RetryPanel.SetActive(false);
-       
+        RetryPanel.SetActive(false); 
     }
 
     public void retry() 
@@ -57,12 +57,21 @@ public class GameManager : MonoBehaviour
 
     public void nextLevel() 
     {
-        NextlvlPanel.SetActive(false);     
+        NextlvlPanel.SetActive(false);
         move = true;
-        //DestroyAll();
+        //this.GetComponent<SpawnManager>().enabled = true;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    /*
+    IEnumerator finishedLevel()
+    {
+        //this.GetComponent<SpawnManager>().enabled = false;
+        yield return new WaitForSeconds(1.5f);
+        move = false;
+        NextlvlPanel.SetActive(true);
+        DestroyAll();
+    }
+
     void DestroyAll()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
@@ -71,7 +80,6 @@ public class GameManager : MonoBehaviour
             Destroy(enemies[i]);
         }
     }
-    */
 
     #region GameOver
     public void gameEnd()
@@ -84,13 +92,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         RetryPanel.SetActive(true);
     }
-    IEnumerator finishedLevel()
-    {
-        NextlvlPanel.SetActive(true);
-        move = false;
-        yield return new WaitForSeconds(1);
-        levelReq = levelReq + 5;
-    }
+ 
     #endregion
 
     #region Test level changer

@@ -11,7 +11,8 @@ public class SaveData : MonoBehaviour
     private void Awake()
     {
         GameManager.SaveData = this;
-        score = 1;
+        if(score < 1)
+            score = 1;
     }
 
     public void scoreUp()

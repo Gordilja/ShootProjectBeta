@@ -33,6 +33,7 @@ public class MoveZombie : MonoBehaviour
             }
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Bullet") 
@@ -44,18 +45,18 @@ public class MoveZombie : MonoBehaviour
             StartCoroutine(die());
         }
     }
-
+/*
     public void death() 
     {
         moveZombie = false;
         manimation.SetBool(isHitHash, true);  
         StartCoroutine(die());
     }
-
+*/
     IEnumerator die() 
     {
         FindObjectOfType<SaveData>().scoreUp();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         manimation.SetBool(isHitHash, false);
         Destroy(gameObject);
     }

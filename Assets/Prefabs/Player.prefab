@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460569215}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.63, y: 0.27, z: 0.246}
+  m_LocalPosition: {x: -2.549, y: 0, z: 0.401}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7288654157011637327}
@@ -4909,7 +4909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPref: {fileID: 5249110088650147408, guid: 29d178a8355b90d448375c86ea92292d, type: 3}
   tip: {fileID: 9202296767636956374}
-  flash: {fileID: 0}
+  flash: {fileID: 1460569218}
   bulletCount: 0
   moveGun: 0
 --- !u!1 &8115239376452580996
@@ -4937,7 +4937,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8115239376452580996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: 2}
+  m_LocalPosition: {x: 0, y: 1.55, z: 2}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0}
   m_Children: []
   m_Father: {fileID: 2524495113981825811}
@@ -5018,7 +5018,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8574509101293692261}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.211, y: 1.387, z: 1.4}
+  m_LocalPosition: {x: 0, y: 1.121, z: 1.153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2524495113981825811}
@@ -5107,11 +5107,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3856406064499430643, guid: 9c32f2e3b18a3a94fa0cb90a4ac1c2fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.224
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3856406064499430643, guid: 9c32f2e3b18a3a94fa0cb90a4ac1c2fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3856406064499430643, guid: 9c32f2e3b18a3a94fa0cb90a4ac1c2fd, type: 3}
       propertyPath: m_LocalPosition.z

@@ -5,6 +5,7 @@ public class CameraControl : MonoBehaviour
     public GameObject player;
     private Vector3 enemy;
     public bool moveCam;
+    public GameObject def;
 
     private void Update()
     {
@@ -15,10 +16,7 @@ public class CameraControl : MonoBehaviour
             GameObject target = FindClosestEnemy();
             enemy = target.transform.position;
             player.transform.LookAt(enemy);
-            if (enemy == null) 
-            {
-                enemy = player.transform.position;
-            }
+  
             //target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(enemy.x, enemy.y, transform.position.z));
             //rotation = Quaternion.Euler(target.y, -target.x, 0);
             //player.transform.rotation = rotation;

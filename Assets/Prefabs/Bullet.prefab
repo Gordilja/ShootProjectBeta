@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043b8c03e2d77ab4f92d94091c9bab55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletObject: {fileID: 1047204232522460585}
 --- !u!136 &744126935819085171
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -58,10 +57,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.07939941
+  m_Radius: 0.10449974
   m_Height: 0.6321524
   m_Direction: 1
-  m_Center: {x: -0.008368075, y: 0.29062393, z: 0}
+  m_Center: {x: -0.008368075, y: 0.29062393, z: -0.0036948845}
 --- !u!54 &5249110088650147408
 Rigidbody:
   m_ObjectHideFlags: 0
