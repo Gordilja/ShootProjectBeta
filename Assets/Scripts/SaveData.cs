@@ -11,8 +11,12 @@ public class SaveData : MonoBehaviour
     private void Awake()
     {
         GameManager.SaveData = this;
-        if(score < 1)
-            score = 1;
+        score = 0;
+        
+    }
+    private void Update()
+    {
+        scoreNum.text = score.ToString();
     }
 
     public void scoreUp()

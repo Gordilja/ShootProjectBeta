@@ -5,41 +5,34 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject prefabObst;
-    private int spawnCount;
+    public int spawnCount;
+    public int spawnNum;
     public int maxSpawn;
     
     // Start is called before the first frame update
     void Start()
     {
-        //spawnCount = FindObjectOfType<SaveData>().score + 1;
+        spawnCount = FindObjectOfType<SaveData>().score;
         InvokeRepeating("SpawnObstacle", 2, 1.4f);
         maxSpawn = 10;
+        spawnNum = 0;
     }
     private void Update()
     {
-        spawnCount = FindObjectOfType<SaveData>().score + 1;
+        spawnCount = FindObjectOfType<SaveData>().score;
     }
 
     void SpawnObstacle() 
     {
-        /*
-        for (spawnCount = 0; spawnCount < maxSpawn; spawnCount++) 
+        if ((FindObjectOfType<GameManager>().move) && (spawnNum != maxSpawn) && (spawnCount < maxSpawn))
         {
             Vector3 spawnerPos = new Vector3(Random.Range(-2, 2), 0.3f, transform.position.z);
             Instantiate(prefabObst, spawnerPos, prefabObst.transform.rotation);
-            spawnCount++;
+            spawnNum++;
         }
-        */
-        if (spawnCount < maxSpawn)
-        {
-            Vector3 spawnerPos = new Vector3(Random.Range(-2, 2), 0.3f, transform.position.z);
-            Instantiate(prefabObst, spawnerPos, prefabObst.transform.rotation);
-            spawnCount++;
-        }
-        else if (maxSpawn >= spawnCount) 
+        else if ((maxSpawn == spawnCount) && (spawnNum == maxSpawn)) 
         {
             FindObjectOfType<GameManager>().levelClear();
-            maxSpawn *= 2;
         }
     }
 }

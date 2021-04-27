@@ -52,13 +52,17 @@ public class GameManager : MonoBehaviour
 
     public void levelClear() 
     {
-        StartCoroutine(finishedLevel());    
+        //StartCoroutine(finishedLevel());
+        move = false;
+        NextlvlPanel.SetActive(true);
+        FindObjectOfType<SpawnManager>().maxSpawn *= 2;
     }
 
     public void nextLevel() 
     {
         NextlvlPanel.SetActive(false);
         move = true;
+        //FindObjectOfType<SpawnManager>().maxSpawn *= 2;
         //this.GetComponent<SpawnManager>().enabled = true;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -69,7 +73,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         move = false;
         NextlvlPanel.SetActive(true);
-        DestroyAll();
+        //DestroyAll();
     }
 
     void DestroyAll()
