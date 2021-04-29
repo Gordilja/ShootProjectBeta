@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class SaveData : MonoBehaviour
@@ -29,12 +27,4 @@ public class SaveData : MonoBehaviour
     {
         PlayerPrefs.SetInt("Score", score);
     }
-
-    /*
-   public void LoadScore()
-   {
-       PlayerPrefs.GetInt("Score", score);
-
-   }
-   */
 }

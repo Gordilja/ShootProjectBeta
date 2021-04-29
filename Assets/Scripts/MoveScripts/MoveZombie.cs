@@ -38,23 +38,16 @@ public class MoveZombie : MonoBehaviour
     {
         if (other.tag == "Bullet") 
         {
-            hit = true;
-            manimation.SetBool(isHitHash, true);
-            FindObjectOfType<AudioManager>().deathPlay();
-            GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
             StartCoroutine(die());
         }
     }
-/*
-    public void death() 
+
+    public IEnumerator die() 
     {
-        moveZombie = false;
-        manimation.SetBool(isHitHash, true);  
-        StartCoroutine(die());
-    }
-*/
-    IEnumerator die() 
-    {
+        hit = true;
+        manimation.SetBool(isHitHash, true);
+        FindObjectOfType<AudioManager>().deathPlay();
+        GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
         FindObjectOfType<SaveData>().scoreUp();
         yield return new WaitForSeconds(1);
         manimation.SetBool(isHitHash, false);

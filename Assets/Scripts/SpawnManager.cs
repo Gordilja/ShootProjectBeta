@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -24,7 +22,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnObstacle() 
     {
-        if ((FindObjectOfType<GameManager>().move) && (spawnNum != maxSpawn) && (spawnCount < maxSpawn))
+        if (FindObjectOfType<GameManager>().move && (spawnNum != maxSpawn) && (spawnCount < maxSpawn))
         {
             Vector3 spawnerPos = new Vector3(Random.Range(-2, 2), 0.3f, transform.position.z);
             Instantiate(prefabObst, spawnerPos, prefabObst.transform.rotation);

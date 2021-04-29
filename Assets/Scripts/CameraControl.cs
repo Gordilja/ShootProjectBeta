@@ -2,24 +2,32 @@
 
 public class CameraControl : MonoBehaviour
 {
-    public GameObject player;
-    private Vector3 enemy;
     public bool moveCam;
-    public GameObject def;
-
+    public GameObject player;
+    private GameObject target;
+    private Vector3 enemy; 
+  
     private void Update()
     {
         
         moveCam = FindObjectOfType<GameManager>().move;
         if (moveCam == true) 
         {
-            GameObject target = FindClosestEnemy();
+
+            target = FindClosestEnemy();
+            if (target == null) 
+            {
+                return;
+            }
             enemy = target.transform.position;
             player.transform.LookAt(enemy);
-  
-            //target = transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(enemy.x, enemy.y, transform.position.z));
-            //rotation = Quaternion.Euler(target.y, -target.x, 0);
-            //player.transform.rotation = rotation;
+            //player.transform.Rotate(target.transform.position.x, 0, 0, Space.World);
+
+            /*
+            Vector3 MousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+            target = transform.GetComponent<Camera>().ScreenToWorldPoint(MousePos);
+            Quaternion rotation = Quaternion.Euler(target.y, -target.x, 0);
+            */
         }   
     }
 
@@ -33,6 +41,7 @@ public class CameraControl : MonoBehaviour
         foreach (GameObject zombie in findenemy)
         {
             Vector3 diff = zombie.transform.position - position;
+            //Quaternion diffRot = Quaternion.Euler(position.y, -position.x, 0);
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance)
             {

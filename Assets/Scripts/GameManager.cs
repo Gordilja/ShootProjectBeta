@@ -9,27 +9,13 @@ public class GameManager : MonoBehaviour
     public GameObject RetryPanel;
     public GameObject NextlvlPanel;
     private float waitTime = 0.5f;
-    public int levelCount;
-    public int levelReq;
     public bool move;
 
     public void Start()
     {   
         move = true;
     }
-    /*
-    private void Update()
-    {
-        levelReq = FindObjectOfType<SpawnManager>().maxSpawn;
-        levelCount = FindObjectOfType<SaveData>().score - 1;
-        if (levelCount == levelReq)
-        {
-            levelClear();
-            levelReq = levelReq + 5;
-            //return;
-        }    
-    }
-    */
+
     private void Awake()
     {
         StartPanel.SetActive(true);
@@ -47,12 +33,11 @@ public class GameManager : MonoBehaviour
 
     public void retry() 
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void levelClear() 
     {
-        //StartCoroutine(finishedLevel());
         move = false;
         NextlvlPanel.SetActive(true);
         FindObjectOfType<SpawnManager>().maxSpawn *= 2;
@@ -62,27 +47,6 @@ public class GameManager : MonoBehaviour
     {
         NextlvlPanel.SetActive(false);
         move = true;
-        //FindObjectOfType<SpawnManager>().maxSpawn *= 2;
-        //this.GetComponent<SpawnManager>().enabled = true;
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    IEnumerator finishedLevel()
-    {
-        //this.GetComponent<SpawnManager>().enabled = false;
-        yield return new WaitForSeconds(1.5f);
-        move = false;
-        NextlvlPanel.SetActive(true);
-        //DestroyAll();
-    }
-
-    void DestroyAll()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            Destroy(enemies[i]);
-        }
     }
 
     #region GameOver
@@ -95,8 +59,18 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         RetryPanel.SetActive(true);
+        DestroyAll();
     }
- 
+
+    void DestroyAll()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            Destroy(enemies[i]);
+        }
+    }
+
     #endregion
 
     #region Test level changer

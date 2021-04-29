@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MoveBullet : MonoBehaviour
 {
-    private float speed = 1000;
+    private float speed = 2000;
     private Rigidbody rb;
 
     void Start() 
@@ -15,7 +13,7 @@ public class MoveBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.AddRelativeForce(Vector3.up * speed);
+        rb.AddRelativeForce(Vector3.forward * speed);
         if (transform.position.z > 50)
         {
             Destroy(gameObject);

@@ -2,14 +2,12 @@
 
 public class MoveRoad : MonoBehaviour
 {
-    float speed = 20;
-    public bool moveRoad;
+    float speed = 30;
 
     // Update is called once per frame
     void Update()
     {
-        moveRoad = FindObjectOfType<GameManager>().move;
-        if (moveRoad == true)
+        if (FindObjectOfType<GameManager>().move)
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }

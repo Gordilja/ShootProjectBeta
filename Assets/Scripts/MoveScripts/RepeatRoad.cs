@@ -1,23 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RepeatRoad : MonoBehaviour
 {
     private Vector3 startPos;
-    private float repeatWidth; //= 26;
+    public float repeatWidth;
 
     // Start is called before the first frame update
     void Start()
     {
         startPos = new Vector3(0, 0, 0);
-        repeatWidth = GetComponent<BoxCollider>().size.z / 2;
+        repeatWidth = 32.2f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z > 28.55) 
+        if (transform.position.z > repeatWidth) 
         {
             transform.position = startPos;
         }
