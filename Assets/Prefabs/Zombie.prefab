@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveZombie: 0
+  hit: 0
 --- !u!65 &2637191876850349006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -369,6 +370,8 @@ GameObject:
   - component: {fileID: 551905941205828215}
   - component: {fileID: 551905941219922797}
   - component: {fileID: 8189142954274078092}
+  - component: {fileID: 2188538848652435874}
+  - component: {fileID: 4512621033349552534}
   m_Layer: 0
   m_Name: zombie_zombie4
   m_TagString: Untagged
@@ -489,6 +492,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2188538848652435874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551905941206326807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96249c4bfc7d094a99d71dbcf4872d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial:
+  - {fileID: 2100000, guid: f1a0c63a9cb13354ab29544279542364, type: 2}
+  - {fileID: 2100000, guid: f1a0c63a9cb13354ab29544279542364, type: 2}
+  duration: 0.3
+--- !u!114 &4512621033349552534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551905941206326807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736d00349b3133b448f32aab86a112de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashEffect: {fileID: 2188538848652435874}
 --- !u!1 &551905941206326809
 GameObject:
   m_ObjectHideFlags: 0

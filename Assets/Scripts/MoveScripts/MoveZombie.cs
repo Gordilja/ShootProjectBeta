@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class MoveZombie : MonoBehaviour
 {
-    float speed = 2;
-    Animator manimation;
+    float speed = 5;
     public bool moveZombie;
-    bool hit;
-    int isHitHash;
+    public bool hit;
 
     // Start is called before the first frame update
     void Start()
     {
-        hit = false;
         FindObjectOfType<AudioManager>().idlePlay();
-        manimation = GetComponent<Animator>();
-        isHitHash = Animator.StringToHash("isHit");
+        hit = false;
     }
 
     // Update is called once per frame
@@ -26,6 +22,7 @@ public class MoveZombie : MonoBehaviour
         if (moveZombie == true && hit == false) 
         {    
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+
             if (transform.position.z < -19)
             {
                 Destroy(gameObject);
@@ -34,23 +31,5 @@ public class MoveZombie : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Bullet") 
-        {
-            StartCoroutine(die());
-        }
-    }
-
-    public IEnumerator die() 
-    {
-        hit = true;
-        manimation.SetBool(isHitHash, true);
-        FindObjectOfType<AudioManager>().deathPlay();
-        GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
-        FindObjectOfType<SaveData>().scoreUp();
-        yield return new WaitForSeconds(1);
-        manimation.SetBool(isHitHash, false);
-        Destroy(gameObject);
-    }
+ 
 }

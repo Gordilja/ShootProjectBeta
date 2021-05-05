@@ -4,46 +4,62 @@ using UnityEngine;
 
 public class GunFire : MonoBehaviour
 {
-    public GameObject bulletPref;
-    public GameObject tip;
+    //public GameObject bulletPref;
+    public GameObject raycaster;
     public ParticleSystem flash;
 
     //User req
-    public int bulletCount = 0;
+    public int bulletCount;
     public bool moveGun;
 
     //Raycast try
     public Camera fpsCam;
-    public float range = 100f;
+    public float range;
     float damage = 10f;
-    public RaycastHit hit;
+
+    private void Start()
+    {
+        range = 100;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        moveGun = FindObjectOfType<GameManager>().move;
-
-        if (bulletCount < 30)
+        if (FindObjectOfType<GameManager>().activePanel)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && moveGun)
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                //ShootRay();
-                Shoot();
+                FindObjectOfType<GameManager>().play();
             }
         }
-        else if (bulletCount == 30) 
+        else if (!FindObjectOfType<GameManager>().activePanel) 
         {
-            StartCoroutine(reload());
+            moveGun = FindObjectOfType<GameManager>().move;
+
+            if (bulletCount > 0)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0) && moveGun)
+                {
+                    ShootRay();
+                    //Shoot();
+                }
+            }
+            else if (bulletCount == 0)
+            {
+                StartCoroutine(reload());
+            }
         } 
     }
 
     IEnumerator reload() 
     {
         FindObjectOfType<AudioManager>().reloadPlay();
-        yield return new WaitForSeconds(1.5f);
-        bulletCount = 0;
+        yield return new WaitForSeconds(1.5f - .25f);
+        yield return new WaitForSeconds(.25f);
+        bulletCount = 30;
     }
 
+    /*
     void Shoot()
     {
 
@@ -60,15 +76,18 @@ public class GunFire : MonoBehaviour
             FindObjectOfType<AudioManager>().bangPlay();
         }
     }
+    */
 
     void ShootRay() 
     {
-        Ray firedRay = new Ray(fpsCam.transform.position, fpsCam.transform.forward);
+        Vector3 fwd = raycaster.transform.TransformDirection(Vector3.forward) * range;
+        Ray firedRay = new Ray(raycaster.transform.position, fwd);
+        RaycastHit hit;
 
-        if (Physics.Raycast(firedRay, out hit, range, LayerMask.GetMask("Rifle")))
+        if (Physics.Raycast(firedRay, out hit, range))
         {
-            Debug.Log(transform.name);
-            Debug.DrawRay(firedRay.origin, firedRay.direction * 10, Color.yellow);
+            Debug.Log(hit.transform.name);
+            Debug.DrawRay(raycaster.transform.position, fwd, Color.red);
 
             Target target = hit.transform.GetComponent<Target>();
             if (target != null) 
@@ -77,9 +96,8 @@ public class GunFire : MonoBehaviour
             }
         }
 
-        bulletCount++;
-        flash.Play();
-        FindObjectOfType<GameManager>().play();
+        bulletCount--;
+        flash.Play();     
         FindObjectOfType<AudioManager>().bangPlay();
     }
 }

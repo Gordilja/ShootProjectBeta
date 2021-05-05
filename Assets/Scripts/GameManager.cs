@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -10,14 +11,23 @@ public class GameManager : MonoBehaviour
     public GameObject NextlvlPanel;
     private float waitTime = 0.5f;
     public bool move;
+    public Text scoreTxt;
+    public Text bulletTxt;
+    public bool activePanel;
 
     public void Start()
-    {   
+    {
+        FindObjectOfType<GunFire>().bulletCount = 30;
         move = true;
+    }
+    private void Update()
+    {
+        bulletTxt.text = "Ammo: " + FindObjectOfType<GunFire>().bulletCount.ToString();
     }
 
     private void Awake()
     {
+        activePanel = true;
         StartPanel.SetActive(true);
         RetryPanel.SetActive(false);
         move = false;
@@ -28,12 +38,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         StartPanel.SetActive(false);
-        RetryPanel.SetActive(false); 
+        RetryPanel.SetActive(false);
+        activePanel = false;
     }
 
     public void retry() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        FindObjectOfType<AudioManager>().idle.Pause();
     }
 
     public void levelClear() 
@@ -41,6 +53,7 @@ public class GameManager : MonoBehaviour
         move = false;
         NextlvlPanel.SetActive(true);
         FindObjectOfType<SpawnManager>().maxSpawn *= 2;
+        FindObjectOfType<AudioManager>().idle.Pause();
     }
 
     public void nextLevel() 
@@ -53,12 +66,14 @@ public class GameManager : MonoBehaviour
     public void gameEnd()
     {
         move = false;
+        FindObjectOfType<AudioManager>().idle.Pause();
         StartCoroutine(waitAnim());
     }
     IEnumerator waitAnim()
     {
         yield return new WaitForSeconds(waitTime);
         RetryPanel.SetActive(true);
+        scoreTxt.text = FindObjectOfType<SaveData>().score.ToString() + " KILLS";
         DestroyAll();
     }
 
@@ -69,6 +84,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemies[i]);
         }
+    }
+
+    public void quitApp()
+    {
+        Application.Quit();
     }
 
     #endregion

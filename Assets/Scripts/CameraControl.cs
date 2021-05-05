@@ -21,6 +21,16 @@ public class CameraControl : MonoBehaviour
             }
             enemy = target.transform.position;
             player.transform.LookAt(enemy);
+
+            /*
+            Vector3 rotation = Quaternion.LookRotation(enemy).eulerAngles;
+            rotation.x = player.transform.rotation.x;
+            rotation.y = enemy.y + 0.3f;
+            rotation.z = player.transform.rotation.z;
+
+            transform.rotation = Quaternion.Euler(rotation);
+            */
+
             //player.transform.Rotate(target.transform.position.x, 0, 0, Space.World);
 
             /*
