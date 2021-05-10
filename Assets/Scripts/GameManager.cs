@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public Text scoreTxt;
     public Text bulletTxt;
     public bool activePanel;
+    public float slidePos;
+
 
     public void Start()
     {
@@ -23,6 +25,15 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        
+        if (slidePos <= 0)
+        {
+            return;
+        }
+        else if (slidePos > 0) 
+        {
+            slidePos = FindObjectOfType<MoveSlider>().value;
+        }
         bulletTxt.text = "Ammo: " + FindObjectOfType<GunFire>().bulletCount.ToString();
     }
 
@@ -61,6 +72,7 @@ public class GameManager : MonoBehaviour
     {
         NextlvlPanel.SetActive(false);
         move = true;
+        FindObjectOfType<MoveSlider>().sliderMove = true;
     }
 
     #region GameOver
@@ -118,20 +130,32 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.2f;
         Time.fixedDeltaTime = 0.2f * Time.timeScale;
         SlowMoPanel.SetActive(true);
+        slidePos = FindObjectOfType<MoveSlider>().value;
     }
 
     public void outSLowM() 
     {
-        Time.timeScale = 1;
-        Time.fixedDeltaTime = 0.2f * Time.timeScale;
-        SlowMoPanel.SetActive(false);
-        DestroyAll();
-        FindObjectOfType<SaveData>().score = FindObjectOfType<SpawnManager>().maxSpawn;
-        StartCoroutine(bombClear());
+        FindObjectOfType<MoveSlider>().sliderMove = false;
+
+        if (slidePos > 290 && slidePos < 340)
+        {
+            Time.timeScale = 1;
+            Time.fixedDeltaTime = 0.2f * Time.timeScale;
+            SlowMoPanel.SetActive(false);
+            DestroyAll();
+            FindObjectOfType<SaveData>().score = FindObjectOfType<SpawnManager>().maxSpawn;
+            StartCoroutine(bombClear());
+
+        }
+        else if (slidePos < 290 || slidePos > 340) 
+        {
+            gameEnd();
+        }
     }
     IEnumerator bombClear() 
     {
         yield return new WaitForSeconds(2);
         levelClear();
+        slidePos = 0;
     }
 }
