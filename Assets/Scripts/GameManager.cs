@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject StartPanel;
     public GameObject RetryPanel;
     public GameObject NextlvlPanel;
+    public GameObject SlowMoPanel;
     private float waitTime = 0.5f;
     public bool move;
     public Text scoreTxt;
@@ -111,4 +112,26 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void slowMotion() 
+    {
+        Time.timeScale = 0.2f;
+        Time.fixedDeltaTime = 0.2f * Time.timeScale;
+        SlowMoPanel.SetActive(true);
+    }
+
+    public void outSLowM() 
+    {
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.2f * Time.timeScale;
+        SlowMoPanel.SetActive(false);
+        DestroyAll();
+        FindObjectOfType<SaveData>().score = FindObjectOfType<SpawnManager>().maxSpawn;
+        StartCoroutine(bombClear());
+    }
+    IEnumerator bombClear() 
+    {
+        yield return new WaitForSeconds(2);
+        levelClear();
+    }
 }

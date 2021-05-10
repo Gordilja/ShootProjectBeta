@@ -24,11 +24,16 @@ public class Target : MonoBehaviour
 
         if (health == 0f)
         {
-            StartCoroutine(die());    
+            Die();    
         }
     }
 
-    IEnumerator die()
+    public void Die() 
+    {
+        StartCoroutine(DieEnum());
+    }
+
+    IEnumerator DieEnum()
     {
         FindObjectOfType<MoveZombie>().hit = true;
         manimation.SetBool(isHitHash, true);

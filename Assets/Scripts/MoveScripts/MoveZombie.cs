@@ -22,8 +22,11 @@ public class MoveZombie : MonoBehaviour
         if (moveZombie == true && hit == false) 
         {    
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
-
-            if (transform.position.z < -19)
+            if (transform.position.z <= -15) 
+            {
+                FindObjectOfType<GameManager>().slowMotion();
+            }
+            else if (transform.position.z < -19)
             {
                 Destroy(gameObject);
                 FindObjectOfType<GameManager>().gameEnd();
