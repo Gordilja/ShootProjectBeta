@@ -15,25 +15,21 @@ public class GameManager : MonoBehaviour
     public Text scoreTxt;
     public Text bulletTxt;
     public bool activePanel;
-    public float slidePos;
+    float valueX;
+    int minValue = 32;
+    int maxValue = 68;
+    public bool stopTime;
 
 
     public void Start()
     {
         FindObjectOfType<GunFire>().bulletCount = 30;
+        stopTime = false;
         move = true;
     }
     private void Update()
     {
-        
-        if (slidePos <= 0)
-        {
-            return;
-        }
-        else if (slidePos > 0) 
-        {
-            slidePos = FindObjectOfType<MoveSlider>().value;
-        }
+        valueX = FindObjectOfType<MoveSlider>().sliderInstance.value;
         bulletTxt.text = "Ammo: " + FindObjectOfType<GunFire>().bulletCount.ToString();
     }
 
@@ -72,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         NextlvlPanel.SetActive(false);
         move = true;
-        FindObjectOfType<MoveSlider>().sliderMove = true;
+        //FindObjectOfType<MoveSlider>().sliderMove = true;
     }
 
     #region GameOver
@@ -80,6 +76,9 @@ public class GameManager : MonoBehaviour
     {
         move = false;
         FindObjectOfType<AudioManager>().idle.Pause();
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.2f * Time.timeScale;
+        SlowMoPanel.SetActive(false);
         StartCoroutine(waitAnim());
     }
     IEnumerator waitAnim()
@@ -130,24 +129,24 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.2f;
         Time.fixedDeltaTime = 0.2f * Time.timeScale;
         SlowMoPanel.SetActive(true);
-        slidePos = FindObjectOfType<MoveSlider>().value;
+        stopTime = true;
     }
 
     public void outSLowM() 
     {
-        FindObjectOfType<MoveSlider>().sliderMove = false;
+        stopTime = false;
 
-        if (slidePos > 290 && slidePos < 340)
+        if (valueX > minValue && valueX < maxValue)
         {
             Time.timeScale = 1;
             Time.fixedDeltaTime = 0.2f * Time.timeScale;
             SlowMoPanel.SetActive(false);
             DestroyAll();
             FindObjectOfType<SaveData>().score = FindObjectOfType<SpawnManager>().maxSpawn;
+            FindObjectOfType<MoveSlider>().speed += 50;
             StartCoroutine(bombClear());
-
         }
-        else if (slidePos < 290 || slidePos > 340) 
+        else if (valueX < minValue || valueX > maxValue) 
         {
             gameEnd();
         }
@@ -156,6 +155,5 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         levelClear();
-        slidePos = 0;
     }
 }
