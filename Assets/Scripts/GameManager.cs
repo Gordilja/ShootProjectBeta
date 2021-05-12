@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
             SlowMoPanel.SetActive(false);
             DestroyAll();
             FindObjectOfType<SaveData>().score = FindObjectOfType<SpawnManager>().maxSpawn;
-            FindObjectOfType<MoveSlider>().speed += 50;
+            FindObjectOfType<MoveSlider>().speed *= 2;
             StartCoroutine(bombClear());
         }
         else if (valueX < minValue || valueX > maxValue) 
