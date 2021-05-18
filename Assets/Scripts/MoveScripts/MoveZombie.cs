@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveZombie : MonoBehaviour
 {
-    float speed = 5;
+    public float speed = 5;
     public bool moveZombie;
     public bool hit;
 
@@ -19,10 +19,10 @@ public class MoveZombie : MonoBehaviour
     void Update()
     {
         moveZombie = FindObjectOfType<GameManager>().move;
-        if (moveZombie == true && hit == false) 
-        {    
+        if (moveZombie == true && hit == false)
+        {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
-            if (transform.position.z <= -15 && transform.position.z >= -19) 
+            if (transform.position.z <= -15 && transform.position.z >= -19)
             {
                 FindObjectOfType<GameManager>().slowMotion();
             }

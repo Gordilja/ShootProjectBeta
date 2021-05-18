@@ -24,6 +24,7 @@ public class Target : MonoBehaviour
 
         if (health == 0f)
         {
+            FindObjectOfType<FlashEffectSample>().Flash();
             Die();    
         }
     }
@@ -36,6 +37,7 @@ public class Target : MonoBehaviour
     IEnumerator DieEnum()
     {
         FindObjectOfType<MoveZombie>().hit = true;
+        gameObject.tag = "Untagged";
         manimation.SetBool(isHitHash, true);
         FindObjectOfType<AudioManager>().deathPlay();
         GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
