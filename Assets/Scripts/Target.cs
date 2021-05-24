@@ -17,33 +17,29 @@ public class Target : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
-        if (health > 0) 
-        {
-            FindObjectOfType<FlashEffectSample>().Flash();
-        }        
+        FindObjectOfType<FlashEffectSample>().Flash();
 
         if (health == 0f)
         {
-            FindObjectOfType<FlashEffectSample>().Flash();
-            Die();    
+            Die();
         }
     }
 
     public void Die() 
     {
-        StartCoroutine(DieEnum());
+        StartCoroutine(enumDie());
     }
 
-    IEnumerator DieEnum()
+    IEnumerator enumDie()
     {
-        FindObjectOfType<MoveZombie>().hit = true;
-        gameObject.tag = "Untagged";
+        //FindObjectOfType<MoveZombie>().hit = true;
+        gameObject.tag = "Untagged";  
         manimation.SetBool(isHitHash, true);
+        FindObjectOfType<SaveData>().scoreUp();
         FindObjectOfType<AudioManager>().deathPlay();
         GetComponent<Collider>().enabled = !GetComponent<Collider>().enabled;
-        yield return new WaitForSeconds(1f);  
+        yield return new WaitForSeconds(1f);
         manimation.SetBool(isHitHash, false);
-        FindObjectOfType<SaveData>().scoreUp();
         Destroy(gameObject);
     }
 }

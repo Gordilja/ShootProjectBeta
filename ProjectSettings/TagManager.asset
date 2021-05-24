@@ -6,6 +6,15 @@ TagManager:
   tags:
   - Zombie
   - Bullet
+  - Zombie 0
+  - Zombie 1
+  - Zombie 2
+  - Zombie 3
+  - Zombie 4
+  - Zombie 5
+  - Zombie 6
+  - Zombie 7
+  - Zombie 8
   layers:
   - Default
   - TransparentFX

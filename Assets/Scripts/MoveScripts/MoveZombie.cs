@@ -21,7 +21,7 @@ public class MoveZombie : MonoBehaviour
         moveZombie = FindObjectOfType<GameManager>().move;
         if (moveZombie == true && hit == false)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            gameObject.transform.Translate(Vector3.forward * Time.deltaTime * speed);
             if (transform.position.z <= -15 && transform.position.z >= -19)
             {
                 FindObjectOfType<GameManager>().slowMotion();
@@ -31,8 +31,16 @@ public class MoveZombie : MonoBehaviour
                 Destroy(gameObject);
                 FindObjectOfType<GameManager>().gameEnd();
             }
+            else if (gameObject.tag == "Untagged") 
+            {
+                hit = true;
+                MoveBack();
+            }
         }
     }
 
- 
+    public void MoveBack() 
+    {
+        gameObject.transform.Translate(Vector3.back * Time.deltaTime * speed);
+    }
 }

@@ -19,16 +19,29 @@ public class GameManager : MonoBehaviour
     int minValue = 32;
     int maxValue = 68;
     public bool stopTime;
+    public List<GameObject> zombies;
 
 
     public void Start()
     {
+        zombies = new List<GameObject>();
         FindObjectOfType<GunFire>().bulletCount = 30;
         stopTime = false;
         move = true;
+        FindObjectOfType<SpawnManager>().counterSpawn = 0;
     }
+
     private void Update()
     {
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 0));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 1));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 2));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 3));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 4));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 5));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 6));
+        zombies.Add(GameObject.FindGameObjectWithTag("Zombie " + 7));
+
         valueX = FindObjectOfType<MoveSlider>().sliderInstance.value;
         bulletTxt.text = "Ammo: " + FindObjectOfType<GunFire>().bulletCount.ToString();
     }
@@ -48,6 +61,8 @@ public class GameManager : MonoBehaviour
         StartPanel.SetActive(false);
         RetryPanel.SetActive(false);
         activePanel = false;
+        FindObjectOfType<SaveData>().counterTag = 0;
+        FindObjectOfType<SpawnManager>().counterSpawn = 0;
     }
 
     public void retry() 
@@ -68,7 +83,8 @@ public class GameManager : MonoBehaviour
     {
         NextlvlPanel.SetActive(false);
         move = true;
-        //FindObjectOfType<MoveSlider>().sliderMove = true;
+        FindObjectOfType<SaveData>().counterTag = 0;
+        FindObjectOfType<SpawnManager>().counterSpawn = 0;
     }
 
     #region GameOver
@@ -91,10 +107,10 @@ public class GameManager : MonoBehaviour
 
     void DestroyAll()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Zombie");
-        for (int i = 0; i < enemies.Length; i++)
+        //GameObject[] enemies = zombies;
+        for (int i = 0; i < zombies.Count; i++)
         {
-            Destroy(enemies[i]);
+            Destroy(zombies[i]);
         }
     }
 
@@ -126,6 +142,7 @@ public class GameManager : MonoBehaviour
 
     public void slowMotion() 
     {
+        activePanel = true;
         Time.timeScale = 0.2f;
         Time.fixedDeltaTime = 0.2f * Time.timeScale;
         SlowMoPanel.SetActive(true);
@@ -135,6 +152,7 @@ public class GameManager : MonoBehaviour
     public void outSLowM() 
     {
         stopTime = false;
+        activePanel = false;
 
         if (valueX > minValue && valueX < maxValue)
         {

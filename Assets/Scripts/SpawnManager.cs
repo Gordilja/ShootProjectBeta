@@ -6,6 +6,8 @@ public class SpawnManager : MonoBehaviour
     public int spawnCount;
     public int spawnNum;
     public int maxSpawn;
+    public int counterSpawn;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -14,9 +16,11 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnObstacle", 2, 1.4f);
         maxSpawn = 10;
         spawnNum = 0;
+        counterSpawn = 0;      
     }
     private void Update()
     {
+        prefabObst.tag = "Zombie " + counterSpawn;
         spawnCount = FindObjectOfType<SaveData>().score;
     }
 
@@ -26,7 +30,17 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 spawnerPos = new Vector3(Random.Range(-2, 2), 0.3f, transform.position.z);
             Instantiate(prefabObst, spawnerPos, prefabObst.transform.rotation);
-            spawnNum++;
+            if (counterSpawn == 7)
+            {
+                prefabObst.tag = "Zombie " + 0;
+                counterSpawn = 0;
+            }
+            else 
+            {
+                counterSpawn++;
+            }
+
+            spawnNum++;  
         }
         else if ((maxSpawn == spawnCount) && (spawnNum == maxSpawn)) 
         {
